@@ -1,9 +1,23 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const TodoContext = createContext();
 
 export const TodoProvider = ({ children }) => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    try {
+      const localTodos = localStorage.getItem('todos');
+      return localTodos ? JSON.parse(localTodos) : [];
+    } catch (e) {
+      console.error('Invalid JSON in localStorage, resetting todos:', e);
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    if (todos.length > 0) {
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+  }, [todos]);
 
   const addTodo = ({ title, description }) => {
     const newTodo = { title, description, completed: false };
