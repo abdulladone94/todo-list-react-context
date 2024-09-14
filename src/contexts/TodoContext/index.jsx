@@ -32,8 +32,16 @@ export const TodoProvider = ({ children }) => {
     setTodos(newTodos);
   };
 
+  // deleteTodo
+  const deleteTodo = (index) => {
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+  };
+
   return (
-    <TodoContext.Provider value={{ todos, addTodo, toggleTodo, editTodo }}>
+    <TodoContext.Provider
+      value={{ todos, addTodo, toggleTodo, editTodo, deleteTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );

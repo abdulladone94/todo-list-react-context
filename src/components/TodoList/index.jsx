@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useTodos } from '../../contexts/TodoContext';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
 const TodoList = () => {
-  const { todos, toggleTodo, editTodo } = useTodos();
+  const { todos, toggleTodo, editTodo, deleteTodo } = useTodos();
   const [editingIndex, setEditingIndex] = useState(null);
   const [editTitle, setEditTitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
@@ -101,6 +102,14 @@ const TodoList = () => {
                   <EditIcon />
                 </IconButton>
               )}
+              {/* Delete Button using MUI Icon */}
+              <IconButton
+                aria-label="delete"
+                color="error"
+                onClick={() => deleteTodo(index)}
+              >
+                <DeleteIcon />
+              </IconButton>
             </>
           )}
         </div>
